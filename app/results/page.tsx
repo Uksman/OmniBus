@@ -43,6 +43,8 @@ export default function Results() {
       </main>
     );
   }
+
+  return (
     <main className="results-page">
       {/* Navbar Minimal */}
       <nav className="navbar" style={{ position: 'sticky' }}>
