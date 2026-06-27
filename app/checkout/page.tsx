@@ -11,6 +11,15 @@ export default function Checkout() {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Auto-fill email if user is logged in
+  useState(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session?.user?.email) {
+        setEmail(session.user.email);
+      }
+    });
+  });
+
   const amount = 18500; // Hardcoded ticket price for MVP
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || '';
 
@@ -44,7 +53,7 @@ export default function Checkout() {
           alert('Payment successful, but failed to save booking: ' + error.message);
         } else {
           alert('Payment Successful! Your seat is booked.');
-          window.location.href = '/';
+          window.location.href = '/account';
         }
       },
       onClose: () => {
