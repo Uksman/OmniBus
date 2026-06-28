@@ -20,8 +20,6 @@ export const metadata: Metadata = {
   themeColor: "#DA291C",
 };
 
-import { ThemeProvider } from "./components/ThemeProvider";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,10 +32,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <PwaRegister />
-          {children}
-        </ThemeProvider>
+        <PwaRegister />
+        {children}
       </body>
     </html>
   );

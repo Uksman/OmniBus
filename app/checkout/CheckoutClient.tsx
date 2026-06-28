@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { usePaystackPayment } from 'react-paystack';
 import { supabase } from '../../lib/supabase';
@@ -11,6 +12,24 @@ export default function Checkout() {
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const searchParams = useSearchParams();
+  const busId = searchParams.get('id');
+
+  const [amount, setAmount] = useState(0);
+  const [seatsLeft, setSeatsLeft] = useState<number | null>(null);
+
+  // Fetch real bus details based on ID
+  useEffect(() => {
+    if (busId) {
+      supabase.from('buses').select('price, seats').eq('id', busId).single().then(({ data }) => {
+        if (data) {
+          setAmount(data.price);
+          setSeatsLeft(data.seats);
+        }
+      });
+    }
+  }, [busId]);
+
   // Auto-fill email if user is logged in
   useState(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -20,7 +39,6 @@ export default function Checkout() {
     });
   });
 
-  const amount = 18500; // Hardcoded ticket price for MVP
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || '';
 
   const config = {
@@ -43,10 +61,16 @@ export default function Checkout() {
         setLoading(true);
         // Save to Supabase
         const { error } = await supabase
-          .from('bookings') // Need to ensure this table exists, or fallback to an alert
+          .from('bookings')
           .insert([
-            { full_name: name, email, phone, amount, payment_reference: reference.reference }
+            { full_name: name, email, phone, amount, payment_reference: reference.reference } // Consider linking bus_id here later
           ]);
+          
+        if (!error && busId && seatsLeft !== null) {
+          // Decrement seat count (Option A)
+          await supabase.from('buses').update({ seats: seatsLeft - 1 }).eq('id', busId);
+        }
+        
         setLoading(false);
         
         if (error) {
@@ -114,14 +138,20 @@ export default function Checkout() {
             </div>
           </div>
 
-          <button 
-            className="btn-primary" 
-            style={{ width: '100%', height: '54px' }}
-            onClick={handleCheckout}
-            disabled={loading}
-          >
-            {loading ? 'Processing...' : 'Pay with Paystack'}
-          </button>
+          {seatsLeft === 0 ? (
+            <button className="btn-primary" style={{ width: '100%', height: '54px', background: 'var(--muted)', cursor: 'not-allowed' }} disabled>
+              Sold Out
+            </button>
+          ) : (
+            <button 
+              className="btn-primary" 
+              style={{ width: '100%', height: '54px' }}
+              onClick={handleCheckout}
+              disabled={loading || amount === 0}
+            >
+              {loading ? 'Processing...' : 'Pay with Paystack'}
+            </button>
+          )}
         </div>
       </div>
     </main>

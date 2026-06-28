@@ -29,8 +29,8 @@ export default function SignUp() {
     if (error) {
       alert(error.message);
     } else {
-      alert('Success! Taking you to your dashboard.');
-      window.location.href = '/account';
+      alert('Success! Please check your email to verify your account before logging in.');
+      window.location.href = '/login';
     }
   };
 

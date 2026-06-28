@@ -21,7 +21,11 @@ export default function Login() {
     setLoading(false);
 
     if (error) {
-      alert(error.message);
+      if (error.message.toLowerCase().includes('email not confirmed')) {
+        alert('Your email is not confirmed yet. Please check your inbox for the verification link!');
+      } else {
+        alert(error.message);
+      }
     } else {
       alert('Login Successful!');
       window.location.href = '/account';

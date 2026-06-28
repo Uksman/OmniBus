@@ -91,8 +91,7 @@ export default function Home() {
 
         <div className="hero-image-container">
           <div className="hero-blob"></div>
-          <img src="/red-bus.png" alt="Luxury Red Bus" className="hero-bus light-bus" />
-          <img src="/hero-dark.png" alt="Luxury Red Bus Dark" className="hero-bus dark-bus" />
+          <img src="/red-bus.png" alt="Luxury Red Bus" className="hero-bus" />
         </div>
       </section>
 
