@@ -61,6 +61,7 @@ a {
   gap: 2.5rem;
   align-items: center;
   flex: 1;
+  justify-content: center;
 }
 
 .nav-link {
@@ -75,8 +76,11 @@ a {
 }
 
 .mobile-nav-actions {
-  margin-left: auto;
+  position: absolute;
+  right: 5%;
   align-items: center;
+  display: flex;
+  gap: 1rem;
 }
 
 .hamburger-menu {
@@ -239,12 +243,12 @@ a {
 }
 
 .search-buttons {
-  width: 100%;
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
   align-items: center;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
 }
 
 /* Hero Image Side */
@@ -274,6 +278,7 @@ a {
   width: 130%; /* Make bus slightly break out */
   max-width: 900px;
   transform: scaleX(-1) translateX(-10%); /* Flips image so it faces left */
+  mix-blend-mode: multiply;
 }
 
 .light-bus {
@@ -546,6 +551,7 @@ a {
     z-index: 99;
   }
   .mobile-nav-actions {
+    position: static;
     flex-direction: column;
     width: 100%;
     margin-left: 0;
