@@ -518,6 +518,217 @@ a {
   font-weight: 600;
 }
 
+/* Features Section */
+.features-section {
+  padding: 5rem 5%;
+  background: var(--card);
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  padding: 2rem;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--accent);
+  color: var(--primary);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.feature-desc {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 5rem 5%;
+  background: var(--background);
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--foreground);
+  margin-bottom: 2rem;
+  flex: 1;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.author-avatar.bg-alt {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.author-avatar.bg-primary {
+  background: var(--accent);
+  color: var(--primary);
+}
+
+.author-info h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0 0 0.25rem 0;
+}
+
+.author-info span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Footer */
+.footer {
+  background: #111111; /* Always dark for premium feel */
+  color: #ffffff;
+  padding: 5rem 5% 2rem;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 3rem;
+}
+
+.footer-brand {
+  flex: 1;
+  min-width: 300px;
+}
+
+.footer-brand .nav-brand {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.footer-desc {
+  color: #9ca3af;
+  line-height: 1.6;
+  max-width: 350px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.link-group h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.link-group a {
+  display: block;
+  color: #9ca3af;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s;
+}
+
+.link-group a:hover {
+  color: var(--primary);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
 /* Auth Pages adjustments */
 .auth-page {
   align-items: center;
@@ -530,6 +741,10 @@ a {
   /* Layout Padding */
   .hero { padding: 100px 1rem 2rem 1rem; flex-direction: column; text-align: center; }
   .destinations, .results-container { padding: 2rem 1rem; }
+  .features-section { padding: 3rem 1rem; }
+  .testimonials-section { padding: 3rem 1rem; }
+  .footer-content { flex-direction: column; gap: 2rem; }
+  .footer-links { flex-direction: column; gap: 2rem; }
   .navbar { padding: 1rem; }
 
   /* Navbar */

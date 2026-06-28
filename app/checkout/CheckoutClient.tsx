@@ -14,6 +14,17 @@ export default function Checkout() {
 
   const searchParams = useSearchParams();
   const busId = searchParams.get('id');
+  const dateParam = searchParams.get('date');
+  
+  let formattedDate = 'Not specified';
+  if (dateParam) {
+    try {
+      const d = new Date(dateParam);
+      if (!isNaN(d.getTime())) {
+         formattedDate = d.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' });
+      }
+    } catch(e) {}
+  }
 
   const [amount, setAmount] = useState(0);
   const [seatsLeft, setSeatsLeft] = useState<number | null>(null);
@@ -31,13 +42,13 @@ export default function Checkout() {
   }, [busId]);
 
   // Auto-fill email if user is logged in
-  useState(() => {
+  useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user?.email) {
         setEmail(session.user.email);
       }
     });
-  });
+  }, []);
 
   const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || '';
 
@@ -63,7 +74,7 @@ export default function Checkout() {
         const { error } = await supabase
           .from('bookings')
           .insert([
-            { full_name: name, email, phone, amount, payment_reference: reference.reference } // Consider linking bus_id here later
+            { full_name: name, email, phone, amount, payment_reference: `${reference.reference} | Date: ${formattedDate}` }
           ]);
           
         if (!error && busId && seatsLeft !== null) {
@@ -124,6 +135,10 @@ export default function Checkout() {
           </div>
 
           <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1.5rem', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+              <span style={{ color: 'var(--muted)' }}>Travel Date</span>
+              <span style={{ fontWeight: '600', color: 'var(--primary)' }}>{formattedDate}</span>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
               <span style={{ color: 'var(--muted)' }}>Ticket Price</span>
               <span style={{ fontWeight: '600' }}>₦{amount.toLocaleString()}</span>

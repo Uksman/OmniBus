@@ -1,6 +1,7 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 
 interface Bus {
@@ -16,7 +17,21 @@ interface Bus {
   amenities: string[];
 }
 
-export default function Results() {
+function ResultsContent() {
+  const searchParams = useSearchParams();
+  const fromParam = searchParams.get('from') || 'Lagos';
+  const toParam = searchParams.get('to') || 'Abuja';
+  const dateParam = searchParams.get('date');
+
+  let formattedDate = 'Mon, 14 Aug';
+  if (dateParam) {
+    try {
+      const d = new Date(dateParam);
+      if (!isNaN(d.getTime())) {
+         formattedDate = d.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
+      }
+    } catch(e) {}
+  }
   const [buses, setBuses] = useState<Bus[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,7 +43,18 @@ export default function Results() {
         .order('id', { ascending: true });
 
       if (!error && data) {
-        setBuses(data);
+        // Filter buses based on from and to params
+        const filteredBuses = data.filter((bus: Bus) => {
+          const routeParts = bus.route.split('→');
+          const routeFrom = routeParts[0] ? routeParts[0].toLowerCase() : '';
+          const routeTo = routeParts[1] ? routeParts[1].toLowerCase() : '';
+          
+          const searchFrom = fromParam.toLowerCase();
+          const searchTo = toParam.toLowerCase();
+          
+          return routeFrom.includes(searchFrom) && routeTo.includes(searchTo);
+        });
+        setBuses(filteredBuses);
       }
       setLoading(false);
     };
@@ -64,8 +90,8 @@ export default function Results() {
         {/* Search Summary Header */}
         <div className="search-summary">
           <div>
-            <h1 className="summary-title">Lagos, NG <span style={{color: 'var(--primary)'}}>→</span> Abuja, NG</h1>
-            <p className="summary-subtitle">Mon, 14 Aug • {buses.length} Buses Found</p>
+            <h1 className="summary-title capitalize">{fromParam}, NG <span style={{color: 'var(--primary)'}}>→</span> {toParam}, NG</h1>
+            <p className="summary-subtitle">{formattedDate} • {buses.length} Buses Found</p>
           </div>
           <Link href="/" className="btn-outline">Modify Search</Link>
         </div>
@@ -116,7 +142,7 @@ export default function Results() {
                     <span key={amenity} className="amenity-badge">{amenity}</span>
                   ))}
                 </div>
-                <Link href={`/checkout?id=${bus.id}`} className="btn-primary" style={{ padding: '0.75rem 2rem', height: 'auto' }}>
+                <Link href={`/checkout?id=${bus.id}${dateParam ? `&date=${dateParam}` : ''}`} className="btn-primary" style={{ padding: '0.75rem 2rem', height: 'auto' }}>
                   Select Seat
                 </Link>
               </div>
@@ -125,5 +151,17 @@ export default function Results() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function Results() {
+  return (
+    <Suspense fallback={
+      <main className="results-page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <p>Loading...</p>
+      </main>
+    }>
+      <ResultsContent />
+    </Suspense>
   );
 }
