@@ -28,6 +28,7 @@ export default function Checkout() {
 
   const [amount, setAmount] = useState(0);
   const [seatsLeft, setSeatsLeft] = useState<number | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   // Fetch real bus details based on ID
   useEffect(() => {
@@ -46,6 +47,9 @@ export default function Checkout() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user?.email) {
         setEmail(session.user.email);
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
       }
     });
   }, []);
@@ -153,7 +157,15 @@ export default function Checkout() {
             </div>
           </div>
 
-          {seatsLeft === 0 ? (
+          {isLoggedIn === false ? (
+            <button 
+              className="btn-primary" 
+              style={{ width: '100%', height: '54px' }}
+              onClick={() => window.location.href = '/signup'}
+            >
+              Create Account to Book
+            </button>
+          ) : seatsLeft === 0 ? (
             <button className="btn-primary" style={{ width: '100%', height: '54px', background: 'var(--muted)', cursor: 'not-allowed' }} disabled>
               Sold Out
             </button>
@@ -162,9 +174,9 @@ export default function Checkout() {
               className="btn-primary" 
               style={{ width: '100%', height: '54px' }}
               onClick={handleCheckout}
-              disabled={loading || amount === 0}
+              disabled={loading || amount === 0 || isLoggedIn === null}
             >
-              {loading ? 'Processing...' : 'Pay with Paystack'}
+              {loading || isLoggedIn === null ? 'Processing...' : 'Pay with Paystack'}
             </button>
           )}
         </div>

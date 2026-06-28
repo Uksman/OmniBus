@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "OmiBus - Premium Travel",
   description: "Book luxury buses across Nigeria",
   manifest: "/manifest.json",
+};
+
+export const viewport = {
   themeColor: "#DA291C",
 };
 

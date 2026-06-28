@@ -110,7 +110,7 @@ export default function Home() {
 
         <div className="hero-image-container">
           <div className="hero-blob"></div>
-          <img src="/red-bus.png" alt="Luxury Red Bus" className="hero-bus" />
+          <Image src="/red-bus.png" alt="Luxury Red Bus" className="hero-bus" width={900} height={500} priority />
         </div>
       </section>
 
@@ -118,42 +118,42 @@ export default function Home() {
         <h2 className="section-title">Find The Perfect<br/>Destinations to travel</h2>
         <div className="dest-grid">
           <Link href="/results?to=Abuja" className="dest-card" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src="/abuja.png" alt="Abuja" />
+            <Image src="/abuja.png" alt="Abuja" fill style={{ objectFit: 'cover' }} />
             <div className="dest-info">
               <h3 className="dest-name">Abuja City Tour</h3>
               <span className="dest-price">From ₦15,000</span>
             </div>
           </Link>
           <Link href="/results?to=Lagos" className="dest-card" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src="/lagos.png" alt="Lagos" />
+            <Image src="/lagos.png" alt="Lagos" fill style={{ objectFit: 'cover' }} />
             <div className="dest-info">
               <h3 className="dest-name">Lagos Mainland</h3>
               <span className="dest-price">From ₦12,000</span>
             </div>
           </Link>
           <Link href="/results?to=Calabar" className="dest-card" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src="/calabar.png" alt="Calabar" />
+            <Image src="/calabar.png" alt="Calabar" fill style={{ objectFit: 'cover' }} />
             <div className="dest-info">
               <h3 className="dest-name">Calabar Carnival</h3>
               <span className="dest-price">From ₦25,000</span>
             </div>
           </Link>
           <Link href="/results?to=Port%20Harcourt" className="dest-card" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src="/port-harcourt.png" alt="Port Harcourt" />
+            <Image src="/port-harcourt.png" alt="Port Harcourt" fill style={{ objectFit: 'cover' }} />
             <div className="dest-info">
               <h3 className="dest-name">Port Harcourt City</h3>
               <span className="dest-price">From ₦18,000</span>
             </div>
           </Link>
           <Link href="/results?to=Enugu" className="dest-card" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src="/enugu.png" alt="Enugu" />
+            <Image src="/enugu.png" alt="Enugu" fill style={{ objectFit: 'cover' }} />
             <div className="dest-info">
               <h3 className="dest-name">Enugu Rolling Hills</h3>
               <span className="dest-price">From ₦14,000</span>
             </div>
           </Link>
           <Link href="/results?to=Kano" className="dest-card" style={{ display: 'block', textDecoration: 'none' }}>
-            <img src="/kano.png" alt="Kano" />
+            <Image src="/kano.png" alt="Kano" fill style={{ objectFit: 'cover' }} />
             <div className="dest-info">
               <h3 className="dest-name">Kano Ancient Gates</h3>
               <span className="dest-price">From ₦16,000</span>
@@ -260,21 +260,21 @@ export default function Home() {
           <div className="footer-links">
             <div className="link-group">
               <h4>Company</h4>
-              <Link href="#">About Us</Link>
-              <Link href="#">Careers</Link>
-              <Link href="#">Press</Link>
+              <Link href="/">About Us</Link>
+              <Link href="/">Careers</Link>
+              <Link href="/">Press</Link>
             </div>
             <div className="link-group">
               <h4>Support</h4>
-              <Link href="#">Help Center</Link>
-              <Link href="#">Terms of Service</Link>
-              <Link href="#">Privacy Policy</Link>
+              <Link href="/">Help Center</Link>
+              <Link href="/">Terms of Service</Link>
+              <Link href="/">Privacy Policy</Link>
             </div>
             <div className="link-group">
               <h4>Contact</h4>
-              <Link href="#">info@omibus.com</Link>
-              <Link href="#">+234 800 OMIBUS</Link>
-              <Link href="#">Lagos, Nigeria</Link>
+              <Link href="/">info@omibus.com</Link>
+              <Link href="/">+234 800 OMIBUS</Link>
+              <Link href="/">Lagos, Nigeria</Link>
             </div>
           </div>
         </div>

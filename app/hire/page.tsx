@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabase } from '../../lib/supabase';
 import { ThemeToggle } from '../components/ThemeToggle';
@@ -12,6 +12,13 @@ export default function HireBus() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session?.user);
+    });
+  }, []);
 
   const handleHireSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,14 +113,25 @@ export default function HireBus() {
               required
             />
 
-            <button 
-              type="submit" 
-              className="btn-primary" 
-              style={{ width: '100%', height: '54px', marginTop: '1.5rem' }}
-              disabled={loading}
-            >
-              {loading ? 'Submitting...' : 'Submit Request'}
-            </button>
+            {isLoggedIn === false ? (
+              <button 
+                type="button" 
+                className="btn-primary" 
+                style={{ width: '100%', height: '54px', marginTop: '1.5rem' }}
+                onClick={() => window.location.href = '/signup'}
+              >
+                Create Account to Hire
+              </button>
+            ) : (
+              <button 
+                type="submit" 
+                className="btn-primary" 
+                style={{ width: '100%', height: '54px', marginTop: '1.5rem' }}
+                disabled={loading || isLoggedIn === null}
+              >
+                {loading || isLoggedIn === null ? 'Checking...' : 'Submit Request'}
+              </button>
+            )}
           </form>
         </div>
       </div>
