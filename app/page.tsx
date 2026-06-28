@@ -36,23 +36,22 @@ export default function Home() {
           <Link href="/destinations" className="nav-link">Destinations</Link>
           <Link href="/account" className="nav-link">Bookings</Link>
           {user && <Link href="/account" className="nav-link">My Account</Link>}
-        </div>
-        <div className="nav-actions">
-          {/* <ThemeToggle /> */}
-          {!user ? (
-            <>
-              <Link href="/login">
-                <button className="btn-outline">Log in</button>
+          <div className="mobile-nav-actions" style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+            {!user ? (
+              <>
+                <Link href="/login" style={{ width: '100%' }}>
+                  <button className="btn-outline" style={{ width: '100%' }}>Log in</button>
+                </Link>
+                <Link href="/signup" style={{ width: '100%' }}>
+                  <button className="btn-primary" style={{ width: '100%' }}>Get started</button>
+                </Link>
+              </>
+            ) : (
+              <Link href="/account" style={{ width: '100%' }}>
+                <button className="btn-primary" style={{ width: '100%' }}>Dashboard</button>
               </Link>
-              <Link href="/signup">
-                <button className="btn-primary">Get started</button>
-              </Link>
-            </>
-          ) : (
-            <Link href="/account">
-              <button className="btn-primary">Dashboard</button>
-            </Link>
-          )}
+            )}
+          </div>
         </div>
       </nav>
 

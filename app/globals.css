@@ -59,6 +59,8 @@ a {
 .nav-links {
   display: flex;
   gap: 2.5rem;
+  align-items: center;
+  flex: 1;
 }
 
 .nav-link {
@@ -72,10 +74,13 @@ a {
   color: var(--primary);
 }
 
-.nav-actions {
-  display: flex;
-  gap: 1rem;
+.mobile-nav-actions {
+  margin-left: auto;
   align-items: center;
+}
+
+.hamburger-menu {
+  display: none;
 }
 
 /* Buttons */
@@ -231,6 +236,15 @@ a {
 
 .search-btn:hover {
   background: var(--primary-hover);
+}
+
+.search-buttons {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem;
 }
 
 /* Hero Image Side */
@@ -514,10 +528,30 @@ a {
   .navbar { padding: 1rem; }
 
   /* Navbar */
+  .navbar { padding: 1rem; justify-content: space-between; }
   .nav-brand { font-size: 1.25rem; }
   .nav-links { display: none; }
-  .nav-actions { gap: 0.5rem; }
-  .btn-primary, .btn-outline { padding: 0.5rem 1rem; font-size: 0.85rem; }
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--card);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    gap: 1.5rem;
+    z-index: 99;
+  }
+  .mobile-nav-actions {
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+  }
+  .nav-actions { display: none; } /* Hide actions on mobile for now, or move them to menu */
+  .hamburger-menu { display: block; cursor: pointer; color: var(--foreground); }
 
   /* Hero Section */
   .hero-title { font-size: 2.5rem; }
@@ -528,6 +562,7 @@ a {
   /* Search Box */
   .search-box { flex-direction: column; width: 100%; border-radius: 12px; }
   .search-field { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 0.75rem 1rem; }
+  .search-buttons { flex-direction: column; gap: 0.5rem; padding: 1rem; }
   .search-btn { width: 100%; margin: 0; border-radius: 0 0 12px 12px; padding: 1rem; }
 
   /* Cards & Lists */
