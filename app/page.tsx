@@ -8,6 +8,7 @@ import { User } from '@supabase/supabase-js';
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -27,7 +28,10 @@ export default function Home() {
         <div className="nav-brand">
            OmiBus
         </div>
-        <div className="nav-links">
+        <div className="hamburger-menu" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </div>
+        <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
           <Link href="/" className="nav-link">Home</Link>
           <Link href="/destinations" className="nav-link">Destinations</Link>
           <Link href="/account" className="nav-link">Bookings</Link>
@@ -78,12 +82,12 @@ export default function Home() {
               <input type="date" className="search-input" />
             </div>
 
-            <div style={{ width: '100%', display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-              <Link href="/hire">
-                <button className="btn-outline">Hire a Bus</button>
+            <div className="search-buttons">
+              <Link href="/hire" style={{ width: '100%' }}>
+                <button className="btn-outline" style={{ width: '100%', padding: '1rem' }}>Hire a Bus</button>
               </Link>
-              <Link href="/results">
-                <button className="btn-primary">Search Buses</button>
+              <Link href="/results" style={{ width: '100%' }}>
+                <button className="btn-primary" style={{ width: '100%', padding: '1rem' }}>Search Buses</button>
               </Link>
             </div>
           </div>
