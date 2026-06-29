@@ -56,28 +56,28 @@ export default function InstallPrompt() {
   if (!isInstallable) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 left-4 sm:left-auto z-50 bg-white dark:bg-zinc-900 p-4 rounded-xl shadow-2xl border border-gray-200 dark:border-zinc-800 flex flex-col gap-3 animate-in fade-in slide-in-from-bottom-5 sm:max-w-sm">
-      <div className="flex justify-between items-start gap-4">
-        <div className="flex items-center gap-3">
-          <div className="bg-red-100 dark:bg-red-900/30 p-2 rounded-lg">
-            <Download className="w-6 h-6 text-[#DA291C]" />
+    <div className="install-prompt-card">
+      <div className="install-prompt-header">
+        <div className="install-prompt-info">
+          <div className="install-prompt-icon">
+            <Download size={24} color="var(--primary)" />
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 dark:text-white leading-tight">Install OmiBus</h3>
-            <p className="text-sm text-gray-500 dark:text-zinc-400 mt-1">Get the app for a faster experience and easy access.</p>
+            <h3 className="install-prompt-title">Install OmiBus</h3>
+            <p className="install-prompt-subtitle">Get the app for a faster experience and easy access.</p>
           </div>
         </div>
         <button 
           onClick={() => setIsInstallable(false)}
-          className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 p-1 -mr-1 -mt-1 rounded-full transition-colors"
+          className="install-prompt-close"
           aria-label="Close"
         >
-          <X className="w-5 h-5" />
+          <X size={20} />
         </button>
       </div>
       <button 
         onClick={handleInstallClick}
-        className="w-full bg-[#DA291C] hover:bg-red-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors text-sm shadow-sm"
+        className="btn-primary install-prompt-btn"
       >
         Install App
       </button>
